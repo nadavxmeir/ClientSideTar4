@@ -2,6 +2,7 @@ let balance = 1000;
 let userNumbers = [];
 let userStrong = null;
 
+const container = document.getElementById("container");
 const form = document.getElementById("lottoForm");
 
 function initBoard() {
@@ -46,17 +47,20 @@ form.addEventListener("submit", function (e) {
 
   if (balance < 300) {
     alert("אין לך מספיק כסף להגרלה נוספת!");
+
     return;
   }
   if (userNumbers.length < 6 || !userStrong) {
     alert("עליך להשלים את הטופס: בחר 6 מספרים ומספר חזק.");
     return;
   }
-
   playGame();
 });
 
 function playGame() {
+  const resultsElement = document.querySelector(".results-box");
+  if (resultsElement) resultsElement.remove();
+
   balance -= 300;
 
   let winNums = [];
@@ -75,26 +79,23 @@ function playGame() {
   else if (matches === 4 && strongMatch) prize = 400;
 
   balance += prize;
-  const resDiv = null;
-  const btn = document.querySelector("#check-btn");
-  btn.addEventListener("click", () => {
-
-  });
-  resDiv = document.createElement("div");
-  resDiv.className = "results-box";
-  displayResults(winNums, winStrong, matches, strongMatch, prize, resDiv);
+  displayResults(winNums, winStrong, matches, strongMatch, prize);
   resetForm();
 }
 
-function displayResults(winNums, winStrong, matches, strongMatch, prize, resDiv) {
+function displayResults(winNums, winStrong, matches, strongMatch, prize) {
   let status = prize > 0 ? `זכייה! זכית ב-${prize} ש"ח` : "לא זכית הפעם";
+  let resDiv = document.createElement("div");
+  resDiv.className = "results-box";
+  container.appendChild(resDiv);
+
   resDiv.innerHTML = `
-        <h3>תוצאות ההגרלה:</h3>
+        <h3>תוצאות ההגרלה</h3>
         <p>מספרים שעלו: ${winNums
-          .sort((a, b) => a - b)
+          .sort((a, b) => b - a)
           .join(", ")} | חזק: ${winStrong}</p>
         <p>הבחירה שלך: ${userNumbers
-          .sort((a, b) => a - b)
+          .sort((a, b) => b - a)
           .join(", ")} | חזק: ${userStrong}</p>
         <p><strong>${status}</strong></p>
     `;

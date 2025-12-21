@@ -6,6 +6,7 @@ body {
 }
 .container {
   max-width: 900px;
+
   margin: auto;
   background: white;
   padding: 30px;
@@ -19,73 +20,94 @@ body {
 
 .status-bar {
   display: flex;
+  font-size: 17px;
+  padding: 0.5em;
   justify-content: space-around;
-  background: #34495e;
+  background: #3b8352;
   color: white;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
   gap: 10px;
   margin-bottom: 30px;
 }
 
-
 .flex-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   margin-bottom: 30px;
 }
 
 .cell {
-  padding: 15px;
-  border: 2px solid #ddd;
-  cursor: pointer;
-  text-align: center;
-  border-radius: 20%;
-  transition: 0.3s;
+  width: 60px; /* Adjust this to fit your grid */
+  height: 60px;
+  border-radius: 50%;
+  /* 2. The SVG Background */
+  background-image: url("lotto-ball.svg");
+  background-size: contain; /* Ensures the whole ball fits */
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* 3. Centering the Number (Flexbox) */
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+
+  /* 4. Text Styling */
+  font-family: sans-serif;
   font-weight: bold;
+  font-size: 24px; /* Adjust size to fit inside the white patch */
+  color: #333; /* Dark grey/black text */
+  cursor: pointer;
+  user-select: none; /* Prevents highlighting the number on click */
+}
+.cell:hover {
+  filter: brightness(1.1); /* Makes the ball slightly brighter on hover */
 }
 .flex-container .cell {
-  
   border-radius: 45%;
-  
 }
 
-.cell.selected {
-  background-color: #27ae60;
-  color: white;
-  border-color: #2ecc71;
+.cell.selected,
+.strong-selected {
+  border: 5px solid #3b8352;
 }
-.cell.strong-selected {
-  background-color: #c0392b;
-  color: white;
-  border-color: #e74c3c;
-}
-
 
 @media (max-width: 768px) {
- 
   .grid-container {
-    grid-template-columns: repeat(7, 1fr);
+    /* grid-template-columns: repeat(8, 1fr); */
   }
+  .status-bar {
+    font-size: 15px;
+  }
+  /* .cell {
+    width: 50px;
+    height: 50px;
+    font-size: 17px;
+  } */
 }
 
 @media (max-width: 480px) {
- 
   .grid-container {
-    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(4, 1fr); */
     gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  .cell {
+  /* .cell {
     padding: 10px;
+    width: 45px;
+    height: 45px;
+
     font-size: 14px;
-  }
+  } */
   .status-bar {
     flex-direction: column;
     text-align: center;
@@ -98,4 +120,19 @@ body {
   margin-top: 20px;
   text-align: center;
   border: 1px solid #ddd;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+button {
+  padding: 1.1em 1em;
+  border: none;
+  border-radius: 10px;
+  background-color: #ddd;
+  cursor: pointer;
+  font-size: 1 5px;
+  font-weight: 600;
 }
