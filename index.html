@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>לוטו - מטלה 4</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>הגרלת לוטו</h1>
+
+      <div class="status-bar">
+        <p>יתרה: <span id="balance">1000</span> ש"ח</p>
+
+        <p>עלות הגרלה: 300 ש"ח</p>
+      </div>
+
+      <form id="lottoForm">
+        <div id="selection-area">
+          <h3>בחר 6 מספרים (1-37):</h3>
+
+          <div id="numbers-grid" class="grid-container"></div>
+
+          <h3>בחר מספר חזק (1-7):</h3>
+
+          <div id="strong-number-section" class="flex-container"></div>
+        </div>
+
+        <div class="controls">
+          <button type="submit" id="check-btn">בדיקת הגרלה</button>
+          <button type="button" id="finish-btn" onclick="finishGame()">
+            סיים הגרלות
+          </button>
+        </div>
+      </form>
+
+      <!-- <div id="results-area" class="results-box"></div> -->
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
