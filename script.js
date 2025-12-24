@@ -45,11 +45,6 @@ function selectStrong(num, el) {
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  if (balance < 300) {
-    alert("אין לך מספיק כסף להגרלה נוספת!");
-
-    return;
-  }
   if (userNumbers.length < 6 || !userStrong) {
     alert("עליך להשלים את הטופס: בחר 6 מספרים ומספר חזק.");
     return;
@@ -79,11 +74,11 @@ function playGame() {
   else if (matches === 4 && strongMatch) prize = 400;
 
   balance += prize;
-  displayResults(winNums, winStrong, matches, strongMatch, prize);
+  displayResults(winNums, winStrong, prize);
   resetForm();
 }
 
-function displayResults(winNums, winStrong, matches, strongMatch, prize) {
+function displayResults(winNums, winStrong, prize) {
   let status = prize > 0 ? `זכייה! זכית ב-${prize} ש"ח` : "לא זכית הפעם";
   let resDiv = document.createElement("div");
   resDiv.className = "results-box";
@@ -100,7 +95,10 @@ function displayResults(winNums, winStrong, matches, strongMatch, prize) {
         <p><strong>${status}</strong></p>
     `;
   document.getElementById("balance").innerText = balance;
-  if (balance < 300) finishGame();
+  if (balance < 300)
+    setTimeout(() => {
+      finishGame();
+    }, 500);
 }
 
 function resetForm() {
@@ -119,8 +117,12 @@ function finishGame() {
     .querySelectorAll("button, .cell")
     .forEach((el) => {
       el.style.pointerEvents = "none";
+      el.classList.remove("selected");
+      el.classList.remove("strong-selected");
       if (el.tagName === "BUTTON") el.disabled = true;
     });
+  const resultsElement = document.querySelector(".results-box");
+  if (resultsElement) resultsElement.remove();
 }
 
 initBoard();
